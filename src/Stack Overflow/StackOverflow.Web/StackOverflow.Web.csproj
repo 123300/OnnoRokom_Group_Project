@@ -10,6 +10,8 @@
   <ItemGroup>
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="8.0.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+    <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.9" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.8" />
     <PackageReference Include="Serilog.AspNetCore" Version="6.0.1" />
     <PackageReference Include="Serilog.Sinks.MSSqlServer" Version="5.7.1" />
     <PackageReference Include="DevSkill.Core" Version="6.0.1" />
@@ -28,6 +30,10 @@
   <ItemGroup>
     <ProjectReference Include="..\StackOverflow.Infrastructure\StackOverflow.Infrastructure.csproj" />
     <ProjectReference Include="..\StackOverflow.Membership\StackOverflow.Membership.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Data\" />
   </ItemGroup>
 
 </Project>

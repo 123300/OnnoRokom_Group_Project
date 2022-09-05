@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Autofac;
+﻿using Autofac;
 using StackOverflow.Infrastructure.DbContexts;
+using StackOverflow.Infrastructure.Repositories;
+using StackOverflow.Infrastructure.Services;
+using StackOverflow.Infrastructure.UnitOfWorks;
 
 namespace StackOverflow.Infrastructure
 {
@@ -29,6 +27,24 @@ namespace StackOverflow.Infrastructure
             builder.RegisterType<ApplicationDbContext>().As<IApplicationDbContext>()
                 .WithParameter("connectionString", _connectionString)
                 .WithParameter("migrationAssemblyName", _migrationAssemblyName)
+                .InstancePerLifetimeScope();
+
+            builder.RegisterType<StackOverflowUnitOfWork>().As<IStackOverflowUnitOfWork>()
+                .InstancePerLifetimeScope();
+
+            builder.RegisterType<QuestionRepository>().As<IQuestionRepository>()
+                .InstancePerLifetimeScope();
+            builder.RegisterType<QuestionService>().As<IQuestionService>()
+                .InstancePerLifetimeScope();
+
+            builder.RegisterType<CommentRepository>().As<ICommentRepository>()
+                .InstancePerLifetimeScope();
+            builder.RegisterType<CommentService>().As<ICommentService>()
+                .InstancePerLifetimeScope();
+
+            builder.RegisterType<AnswerRepository>().As<IAnswerRepository>()
+                .InstancePerLifetimeScope();
+            builder.RegisterType<AnswerService>().As<IAnswerService>()
                 .InstancePerLifetimeScope();
 
             base.Load(builder);

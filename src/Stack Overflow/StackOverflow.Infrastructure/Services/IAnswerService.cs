@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StackOverflow.Infrastructure.BusinessObjects
+namespace StackOverflow.Infrastructure.Services
 {
-    public class ApplicationUser
+    public interface IAnswerService
     {
     }
 }

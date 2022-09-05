@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DevSkill.Data;
-
-namespace StackOverflow.Infrastructure.Entities
+﻿namespace StackOverflow.Infrastructure.BusinessObjects
 {
-    public class Answer : IEntity<int>
+    public class Answer
     {
         public int Id { get; set; }
         public string? Description { get; set; }

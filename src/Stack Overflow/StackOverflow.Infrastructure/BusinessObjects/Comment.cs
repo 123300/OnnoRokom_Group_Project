@@ -1,8 +1,6 @@
-﻿using DevSkill.Data;
-
-namespace StackOverflow.Infrastructure.Entities
+﻿namespace StackOverflow.Infrastructure.BusinessObjects
 {
-    public class Comment : IEntity<int>
+    public class Comment
     {
         public int Id { get; set; }
         public string? Description { get; set; }

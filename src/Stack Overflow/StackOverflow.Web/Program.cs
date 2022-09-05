@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Serilog.Events;
 using StackOverflow.Infrastructure;
+using StackOverflow.Infrastructure.DbContexts;
 using StackOverflow.Infrastructure.Entities.Membership;
 using StackOverflow.Membership;
 using StackOverflow.Membership.Services;
 using StackOverflow.Web;
-using StackOverflow.Web.Data;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);

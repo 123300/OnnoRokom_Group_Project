@@ -1,6 +1,6 @@
 ﻿using StackOverflow.Infrastructure.Entities.Membership;
 
-namespace DevPos.Infrastructure.Seeds
+namespace StackOverflow.Infrastructure.Seeds
 {
     public class RoleSeed
     {
