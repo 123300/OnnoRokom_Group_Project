@@ -62,6 +62,11 @@ namespace StackOverflow.Membership.Services
 
             //await SignInAsync(user);
 
+            var roleResult = await _userManager.AddToRoleAsync(user, "User");
+
+            if (!roleResult.Succeeded)
+                return roleResult;
+
             await DependentDataAsync(user, applicationUser);
 
             return result;
@@ -156,13 +161,12 @@ namespace StackOverflow.Membership.Services
 
         public async Task<bool> UpdateAccountAsync(ApplicationUser user)
         {
-            //aikhan theke kaaj korte hobe
             if (user is null)
                 throw new InvalidOperationException("Application user must be provided to update dependent data");
 
             var userEntity = await _userManager.FindByIdAsync(user.Id.ToString());
-            userEntity.FirstName = user.FirstName;
-            userEntity.Email = user.Email;
+
+            userEntity = _mapper.Map(user, userEntity);
             userEntity.NormalizedEmail = user.Email!.ToUpper();
 
             var result = await _userManager.UpdateAsync(userEntity);

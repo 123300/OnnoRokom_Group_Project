@@ -54,7 +54,8 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddControllersWithViews();
 
 builder.Services
-    .AddIdentity<ApplicationUser, Role>()
+    .AddIdentity<ApplicationUser, Role>( options => 
+    options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddUserManager<UserManager>()
     .AddRoleManager<RoleManager>()

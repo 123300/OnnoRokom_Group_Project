@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using StackOverflow.Infrastructure.Entities.Membership;
+using StackOverflow.Infrastructure.Seeds;
 
 namespace StackOverflow.Infrastructure.DbContexts
 {
@@ -35,7 +36,12 @@ namespace StackOverflow.Infrastructure.DbContexts
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-
+            #region Seed
+            builder.Entity<ApplicationUser>()
+                .HasData(ApplicationUserSeed.Users);
+            #endregion
         }
+
+        public DbSet<ApplicationUser>? ApplicationUsers { get; set; }
     }
 }
