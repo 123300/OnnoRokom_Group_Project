@@ -1,6 +1,7 @@
 ﻿using DevSkill.Http.Utilities;
 using DevSkill.Http.Emails.Services;
 using StackOverflow.Membership.BusinessObjects;
+using StackOverflow.Membership.Templates;
 
 namespace StackOverflow.Membership.Services
 {
@@ -8,6 +9,7 @@ namespace StackOverflow.Membership.Services
     {
         private IUrlService _urlService;
         private IQueuedEmailService _queuedEmailService;
+        private const string confirmationEmailSubject = "Confirmation Email";
 
         public MembershipMailSenderService(IUrlService urlService, IQueuedEmailService queuedEmailService)
         {
@@ -23,11 +25,14 @@ namespace StackOverflow.Membership.Services
                 throw new InvalidOperationException("User with valid email and verification code must be provided");
             }
 
-            _urlService.GenerateAbsoluteUrl("Account", "ConfirmEmail",
+            var verificationLink = _urlService.GenerateAbsoluteUrl("Account", "ConfirmEmail",
                 new { userName = user.UserName, code = verificationCode, area = "" });
 
+            //var accountConfirmationEmail = new AccountConfirmationMailTemplate(verificationLink);
+            //var emailBody = accountConfirmationEmail.TransformText();
+
             await _queuedEmailService.SendSingleEmailAsync(user.FirstName, user.Email,
-                "DemoEmail", "This email has been sent for demo purpose");
+                "StackOverflow_Email", "This email has been sent for demo purpose");
 
         }
     }

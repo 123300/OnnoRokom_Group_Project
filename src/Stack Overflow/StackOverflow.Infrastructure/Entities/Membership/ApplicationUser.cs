@@ -6,5 +6,6 @@ namespace StackOverflow.Infrastructure.Entities.Membership
     {
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
+        public IList<Question>? Questions { get; set; }
     }
 }

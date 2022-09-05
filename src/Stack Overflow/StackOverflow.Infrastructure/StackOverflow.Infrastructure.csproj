@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Seeds\" />
     <Folder Include="Profiles\" />
     <Folder Include="Services\" />
     <Folder Include="UnitOfWorks\" />

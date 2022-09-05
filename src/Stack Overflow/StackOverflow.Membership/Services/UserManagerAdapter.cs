@@ -60,9 +60,9 @@ namespace StackOverflow.Membership.Services
             if (!result.Succeeded)
                 return result;
 
-            //await SignInAsync(user);
-
             var roleResult = await _userManager.AddToRoleAsync(user, "User");
+
+            await SignInAsync(user);
 
             if (!roleResult.Succeeded)
                 return roleResult;
