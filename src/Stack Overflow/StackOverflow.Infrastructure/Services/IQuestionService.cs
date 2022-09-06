@@ -8,5 +8,7 @@ namespace StackOverflow.Infrastructure.Services
         Task<Question> GetByIdAsync(int id);
         Task UpdateQuestionAsync(Question question);
         Task DeleteQuestionAsync(int id);
+        Task<List<Question>> GetQuestionsAsync(Guid id);
+        void GetTest(int pageIndex);
     }
 }

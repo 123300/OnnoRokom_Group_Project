@@ -43,7 +43,7 @@ namespace StackOverflow.Web.Controllers
 						}
 						else
 						{
-							return LocalRedirect(model.ReturnUrl);
+							return RedirectToAction("Index","Question", new {area = "Explorer"});
 						}
 					}
 					foreach (var error in result.Errors)

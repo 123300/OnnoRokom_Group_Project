@@ -42,6 +42,9 @@ namespace StackOverflow.Web.Data
                     b.Property<Guid?>("TempId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<int?>("TotalAnsVote")
+                        .HasColumnType("int");
+
                     b.Property<int?>("Vote")
                         .HasColumnType("int");
 
@@ -105,6 +108,12 @@ namespace StackOverflow.Web.Data
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsAnsVoteDone")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsQutnVoteDone")
+                        .HasColumnType("bit");
+
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
@@ -158,17 +167,19 @@ namespace StackOverflow.Web.Data
                         {
                             Id = new Guid("e9b3be8c-99c5-42c7-8f2e-1eb39f6d9125"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "14f5e790-2d07-4094-84fa-72c1bf510992",
+                            ConcurrencyStamp = "de7dfe33-305e-48f4-9ca4-e92a0a2d1f29",
                             Email = "admin@stackOverflow.com",
                             EmailConfirmed = true,
                             FirstName = "Admin",
+                            IsAnsVoteDone = false,
+                            IsQutnVoteDone = false,
                             LastName = "",
                             LockoutEnabled = true,
                             NormalizedEmail = "ADMIN@STACKOVERFLOW.COM",
                             NormalizedUserName = "ADMIN@STACKOVERFLOW.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAELXB1wndoyit/2tOG/L/dnEqgu3hF0/37zX7lvvlLj+vFtAbF5EYauCK2nnC620ALg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAECdZ4ioGQ2elNrH4duJfZU9zKUUZfuR6G+pImuSJeYKCDVWyQMW4GmFYRSuePc8HuA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "f736450d-e1f2-485a-992b-0b05b8a3a745",
+                            SecurityStamp = "53547410-d788-4f44-9655-d36dcfa7a7e1",
                             TwoFactorEnabled = false,
                             UserName = "admin@stackOverflow.com"
                         },
@@ -176,17 +187,19 @@ namespace StackOverflow.Web.Data
                         {
                             Id = new Guid("8f3d96ce-76ec-4992-911a-33ceb81fa29d"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "66f3d202-2136-43c1-812f-bc8d639e07bd",
+                            ConcurrencyStamp = "b2e343c5-4a94-4218-a85f-7568ff4c198d",
                             Email = "user@stackOverflow.com",
                             EmailConfirmed = true,
                             FirstName = "Saiful",
+                            IsAnsVoteDone = false,
+                            IsQutnVoteDone = false,
                             LastName = "Islam",
                             LockoutEnabled = true,
                             NormalizedEmail = "USER@STACKOVERFLOW.COM",
                             NormalizedUserName = "USER@STACKOVERFLOW.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAELpyzq3yqjeXZKGAySQQhTqv8ewf2VD1AVqAduQxZEAcdnL77PYYG4GL8WOHvyTBuQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEAOj7lXRqFUu818Sg5Kd3SZ2eBOl9sFpijOjQ8JB4sfQIadLJ1DOLjQBL8aJ+5YvTg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "c3e3adda-1140-4e22-9c0c-c78902496197",
+                            SecurityStamp = "76cc7bc2-15b7-4c00-95e6-2c85ad3f81be",
                             TwoFactorEnabled = false,
                             UserName = "user@stackOverflow.com"
                         });
@@ -223,14 +236,14 @@ namespace StackOverflow.Web.Data
                         new
                         {
                             Id = new Guid("2c5e174e-3b0e-446f-86af-483d56fd7210"),
-                            ConcurrencyStamp = "637980236307738571",
+                            ConcurrencyStamp = "637980397527658931",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = new Guid("e943ffbf-65a4-4d42-bb74-f2ca9ea8d22a"),
-                            ConcurrencyStamp = "637980236307738722",
+                            ConcurrencyStamp = "637980397527659016",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -368,16 +381,13 @@ namespace StackOverflow.Web.Data
                     b.Property<bool>("IsSolvedQstn")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsVoteDone")
-                        .HasColumnType("bit");
-
                     b.Property<string>("QuestionBody")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("Vote")
+                    b.Property<int?>("TotalQutnVote")
                         .HasColumnType("int");
 
                     b.HasKey("Id");

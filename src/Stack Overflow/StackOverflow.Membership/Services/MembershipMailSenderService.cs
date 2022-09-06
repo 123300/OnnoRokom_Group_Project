@@ -31,8 +31,8 @@ namespace StackOverflow.Membership.Services
             //var accountConfirmationEmail = new AccountConfirmationMailTemplate(verificationLink);
             //var emailBody = accountConfirmationEmail.TransformText();
 
-            await _queuedEmailService.SendSingleEmailAsync(user.FirstName, user.Email,
-                "StackOverflow_Email", "This email has been sent for demo purpose");
+            //await _queuedEmailService.SendSingleEmailAsync(user.FirstName, user.Email,
+            //    "StackOverflow_Email", "This email has been sent for demo purpose");
 
         }
     }

@@ -10,11 +10,14 @@ namespace StackOverflow.Infrastructure
     {
         private readonly string _connectionString;
         private readonly string _migrationAssemblyName;
+        private readonly string _webHostEnvironment;
 
-        public InfrastructureModule(string connectionString, string migrationAssemblyName)
+        public InfrastructureModule(string connectionString, string migrationAssemblyName,
+            string webHostEnvironment)
         {
             _connectionString = connectionString;
             _migrationAssemblyName = migrationAssemblyName;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         protected override void Load(ContainerBuilder builder)

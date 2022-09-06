@@ -1,5 +1,6 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using DevSkill.Http.Emails;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
@@ -17,13 +18,15 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 var assemblyName = Assembly.GetExecutingAssembly().FullName!;
+var webHostEnvironment = builder.Environment.WebRootPath;
 
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
 {
     containerBuilder.RegisterModule(new WebModule());
     containerBuilder.RegisterModule(new MembershipModule());
-    containerBuilder.RegisterModule(new InfrastructureModule(connectionString, assemblyName));
+    containerBuilder.RegisterModule(new InfrastructureModule(connectionString, assemblyName, webHostEnvironment));
+    containerBuilder.RegisterModule(new EmailMessagingModule(connectionString, assemblyName));
 });
 
 //Serilog Configuration
@@ -34,14 +37,14 @@ builder.Host.UseSerilog((ctx, lc) => lc
     .ReadFrom.Configuration(builder.Configuration));
 
 //Localhost HTTPS port configuration
-builder.WebHost
-.ConfigureKestrel(options =>
-{
-    options.ListenLocalhost(7058, opts => opts.UseHttps());
-    //get your localhost htttps port number from launch settings
-});
+//builder.WebHost
+//.ConfigureKestrel(options =>
+//{
+//    options.ListenLocalhost(7058, opts => opts.UseHttps());
+//    //get your localhost htttps port number from launch settings
+//});
 
-builder.WebHost.UseUrls("http://*:80");
+//builder.WebHost.UseUrls("http://*:80");
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString, m => m.MigrationsAssembly(assemblyName)));

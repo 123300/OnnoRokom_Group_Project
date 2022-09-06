@@ -61,11 +61,11 @@ namespace StackOverflow.Web.Models
             var roles = await _userManagerAdapter!.GetUserRolesAsync(Email!);
             if (roles.Contains("Admin"))
             {
-                this.ReturnUrl = "~/admin/dashboard";
+                this.ReturnUrl = "~/Home/Index";
             }
             else
             {
-                this.ReturnUrl = "~/store/dashboard";
+                this.ReturnUrl = "~/Home/Index";
             }
         }
 

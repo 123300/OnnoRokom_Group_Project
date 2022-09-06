@@ -6,6 +6,8 @@ namespace StackOverflow.Infrastructure.Entities.Membership
     {
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
+        public bool IsQutnVoteDone { get; set; }
+        public bool IsAnsVoteDone { get; set; }
         public IList<Question>? Questions { get; set; }
     }
 }
