@@ -56,8 +56,7 @@ namespace StackOverflow.Infrastructure.Services
                 Title = question.Title,
                 CreatedAt = question.CreatedAt,
                 IsSolvedQstn = question.IsSolvedQstn,
-                QuestionBody = question.QuestionBody,
-                TotalQutnVote = question.TotalQutnVote
+                QuestionBody = question.QuestionBody
                 
             };
             business.Tags = new List<Tag>();
