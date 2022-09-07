@@ -17,7 +17,5 @@ namespace StackOverflow.Membership.BusinessObjects
         public string? Email { get; set; }
         public string? Password { get; set; }
         public bool RememberMe { get; set; }
-        public bool IsAnsVoteDone { get; set; }
-        public bool IsQutnVoteDone { get; set; }
     }
 }

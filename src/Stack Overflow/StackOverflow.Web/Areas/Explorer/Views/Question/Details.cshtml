@@ -1,0 +1,234 @@
+﻿@model QuestionEditModel
+@{
+    ViewData["Title"] = "Details";
+}
+
+@if(Model != null)
+{
+   <div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-3 col-sm-9">
+                 <button type="button" class="btn btn-primary btn-sm addQsn" onclick="LoadQusnVote()"><i class="fa fa-chevron-up"></i></button>
+                 <br />
+                 <small>Vote</small>
+                 <br />
+                 <button type="button" class="btn btn-primary btn-sm addQsn"><i class="fa fa-chevron-down"></i></button>
+            </div>
+            <div class="col-md-9 col-sm-9">
+                <div class="bg-primary text-white">
+                    <input type="text" hidden value="@Model.Id" class="getQuesId" />
+                    <h3 class="ml-2">@Model.Title</h3>
+                    <br />
+                    <textarea class="form-control" rows="5" id="email" disabled>
+                        @Model.QuestionBody
+                    </textarea>
+                    <br />
+                        @if(Model.Tags != null)
+                        {
+                            foreach(var tag in Model.Tags)
+                            {
+                                <small class="ml-3">@tag</small>
+                            }
+                        }
+                    <br />
+                    <div class="bg-info text-black">
+                        <p class="ml-2">Author Name</p>
+                        <small>create time</small>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+            @if(Model.Answers != null)
+            {
+               <div class="row">
+            <div class="col-md-3 col-sm-9">
+                 <button type="button" class="btn btn-primary btn-sm addAns" onclick="LoadAnsVote()"><i class="fa fa-chevron-up"></i></button>
+                 <br />
+                 <small>Vote</small>
+                 <br />
+                 <button type="button" class="btn btn-primary btn-sm addAns" onclick="LoadAnsVote()"><i class="fa fa-chevron-down"></i></button>
+                 <br />
+                 <button><i class="fa fa-check"></i></button>
+            </div>
+            <div class="col-md-9 col-sm-9">
+                <div class="bg-light text-white">
+                  @foreach(var answer in Model.Answers)
+                  {
+                                <div>
+                                    <input type="text" hidden value="@answer.Id" class="getAnsId" />
+                                <textarea class="form-control" rows="5" id="email" disabled>
+                                  @answer.Description
+                                </textarea>
+                                <div class="float-right">@answer.AuthorName</div>
+                                </div>
+                                <br />
+                                if (answer.Comments != null)
+                                {
+                                    foreach(var comment in answer.Comments)
+                                {
+                                    <small>List of comment</small>
+                                    <div>
+                                        <p>@comment.Description</p>
+                                    <div class="float-right">@comment.AuthorName</div>
+                                    <div class="float-right">@comment.CreatedBy</div>
+                                    </div>
+                                    
+                                    <div class="mycomment"></div>
+                                    <input type="text" placeholder="add a comment" class="comText"/>
+                                    <button type="button" onclick="Cmnt()">CommentBtn</button>
+                                    <br />
+                                }
+                                }
+                  }
+                </div>
+            </div>
+            <div class="bg-light text-info">
+                <h3>Your Answer</h3>
+                <textarea class="form-control ansText" rows="5" id="email"></textarea>
+                <button type="button" onclick="Ans()">AnswerBtn</button>
+            </div>
+        </div> 
+            }
+            
+    </div>
+</div>
+}
+
+
+
+
+
+@section Scripts{
+
+    <script>
+
+    function LoadQusnVote() {
+        var quesId = $(".getQuesId").val();
+
+        $.ajax({
+        url: '@Url.Action("AddQuestionVote", "Answer")',
+        type: 'POST',
+        cache: false,
+        data: { 'quesId': quesId },
+        success: function(result) { 
+            
+        },
+        error: function (result) 
+        {
+            if(result.status == 401){
+                location.href = '/Account/Login';
+            }
+        }
+        });
+    }
+</script>
+<script>
+
+    function LoadAnsVote() {
+        var answerId = $(".getAnsId").val();
+
+        $.ajax({
+        url: '@Url.Action("AddAnsVote", "Answer")',
+        type: 'POST',
+        cache: false,
+        data: { 'answerId': answerId },
+        success: function(result) { 
+            
+        },
+        error: function (result) 
+        {
+            if(result.status == 401){
+                location.href = '/Account/Login';
+            }
+        }
+        });
+    }
+</script>
+<script>
+    
+	function Cmnt(){
+        var commentVal = $(".comText").val();
+        if(commentVal == "")
+        {
+            alert("Comment value can not be null");
+            return false;
+        }
+        var answerId = $(".getAnsId").val();
+        var quesId = $(".getQuesId").val();
+
+		LoadQuestion(commentVal,answerId,quesId);
+	}
+    function LoadQuestion(commentVal,answerId,quesId) {
+        $.ajax({
+        url: '@Url.Action("AddComment", "Answer")',
+        type: 'POST',
+        cache: false,
+        data: { 'commentVal': commentVal, 'answerId' : answerId },
+        success: function(result) { 
+            location.href = '/Explorer/Question/Details/${quesId}';
+        },
+        error: function (result) 
+        {
+            if(result.status == 401){
+                location.href = '/Account/Login';
+            }
+        }
+        });
+    }
+</script>
+
+<script>  
+	function Ans(){
+        var answerText = $(".ansText").val();
+        var quesId = $(".getQuesId").val();
+
+        if(answerText == "")
+        {
+            alert("Answer value can not be null");
+            return false;
+        }
+
+		LoadAnswer(answerText,quesId);
+	}
+    function LoadAnswer(answerText,quesId) {
+        $.ajax({
+        url: '@Url.Action("AddAnswer", "Answer")',
+        type: 'POST',
+        cache: false,
+        data: { 'answerText': answerText, 'quesId' : quesId },
+        success: function(result) { 
+            //assignPost(result);
+            location.href = '/Explorer/Question/Details/${quesId}';
+        },
+        error: function (result) 
+        { 
+            if(result.status == 401){
+                location.href = '/Account/Login';
+            }
+        }
+        });
+    }
+</script>
+@*<script>
+function assignPost(result){
+    var questionCard = ``;
+    for (var i = 0; i < result.length; i++) {
+        console.log(result[i]);
+        var Id = result[i].id;
+        var Title = result[i].title;
+        var QuestionBody = result[i].questionBody;
+        questionCard = `<div><input type="text" hidden value="${Id}" class="getAnsId" />
+                        <textarea class="form-control" rows="5" id="email" disabled>
+                         @answer.Description
+                         </textarea>
+                         <div class="float-right">@answer.AuthorName</div>
+                         </div>`;
+        $(questionCard).appendTo('#questions');
+    }
+    
+}
+</script>*@
+}
+

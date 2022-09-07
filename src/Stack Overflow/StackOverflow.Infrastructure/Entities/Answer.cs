@@ -11,6 +11,7 @@ namespace StackOverflow.Infrastructure.Entities
     {
         public int Id { get; set; }
         public string? Description { get; set; }
+        public string? AuthorName { get; set; }
         public int QuestionId { get; set; }
         public Guid? TempId { get; set; }
         public Question? Question { get; set; }

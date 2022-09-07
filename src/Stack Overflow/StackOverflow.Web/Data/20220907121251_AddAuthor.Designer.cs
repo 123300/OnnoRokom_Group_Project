@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StackOverflow.Infrastructure.DbContexts;
 
@@ -11,9 +12,10 @@ using StackOverflow.Infrastructure.DbContexts;
 namespace StackOverflow.Web.Data
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220907121251_AddAuthor")]
+    partial class AddAuthor
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -29,9 +31,6 @@ namespace StackOverflow.Web.Data
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("AuthorName")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -59,9 +58,6 @@ namespace StackOverflow.Web.Data
 
                     b.Property<int>("AnswerId")
                         .HasColumnType("int");
-
-                    b.Property<string>("AuthorName")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
@@ -158,7 +154,7 @@ namespace StackOverflow.Web.Data
                         {
                             Id = new Guid("e9b3be8c-99c5-42c7-8f2e-1eb39f6d9125"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "86a2e49a-edc6-481e-a418-6ef9e83f26ce",
+                            ConcurrencyStamp = "f23ab084-c5ea-46bd-86b0-e256bb79ecd3",
                             Email = "admin@stackOverflow.com",
                             EmailConfirmed = true,
                             FirstName = "Admin",
@@ -166,9 +162,9 @@ namespace StackOverflow.Web.Data
                             LockoutEnabled = true,
                             NormalizedEmail = "ADMIN@STACKOVERFLOW.COM",
                             NormalizedUserName = "ADMIN@STACKOVERFLOW.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEDSa4I/WNdLfgBSMPuzCuoMGGkQlZD/24Ya4M4B2jfhHA0e2fNhhSPW7Ot2/9z+dWg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEHrMrztwrV8i95L8MNlzSkmqv92OJi2r+HpRZPWFuBJaUKmHVfu840NnASRnik51TA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "5e0308c3-6a9c-4faa-aa64-43bb2d72910a",
+                            SecurityStamp = "ebdedaf3-8db1-4bb3-8849-41aca51399e0",
                             TwoFactorEnabled = false,
                             UserName = "admin@stackOverflow.com"
                         },
@@ -176,7 +172,7 @@ namespace StackOverflow.Web.Data
                         {
                             Id = new Guid("8f3d96ce-76ec-4992-911a-33ceb81fa29d"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "acd4251d-a513-4b11-8207-1bffd17d8aaf",
+                            ConcurrencyStamp = "66c7c406-eddc-4145-a4c6-23f669e92ca6",
                             Email = "user@stackOverflow.com",
                             EmailConfirmed = true,
                             FirstName = "Saiful",
@@ -184,9 +180,9 @@ namespace StackOverflow.Web.Data
                             LockoutEnabled = true,
                             NormalizedEmail = "USER@STACKOVERFLOW.COM",
                             NormalizedUserName = "USER@STACKOVERFLOW.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEKH3/8Y7wgO7izCYKFU1gWs8txsSaTFNkofkdcWIOLYIWnBxzrceLZ09ZSswaOAvGQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENdkng2u5yOMmWTFEoYopSBRk3OYKMee0uXozu4kwgvN6Vskdy8hHhy5mQkcciGvRw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "dca8943e-82c8-4b81-8886-4a84c166a5f8",
+                            SecurityStamp = "5d9e454b-abe6-4996-9e8d-b0954b509d69",
                             TwoFactorEnabled = false,
                             UserName = "user@stackOverflow.com"
                         });
@@ -223,14 +219,14 @@ namespace StackOverflow.Web.Data
                         new
                         {
                             Id = new Guid("2c5e174e-3b0e-446f-86af-483d56fd7210"),
-                            ConcurrencyStamp = "637981715771974995",
+                            ConcurrencyStamp = "637981711684495697",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = new Guid("e943ffbf-65a4-4d42-bb74-f2ca9ea8d22a"),
-                            ConcurrencyStamp = "637981715771975075",
+                            ConcurrencyStamp = "637981711684495786",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -361,9 +357,6 @@ namespace StackOverflow.Web.Data
 
                     b.Property<Guid>("ApplicationUserId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("AuthorName")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime2");

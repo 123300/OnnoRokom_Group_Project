@@ -18,11 +18,40 @@ namespace StackOverflow.Web.Areas.Explorer.Controllers
             return View();
         }
 
-        public async Task<IActionResult> AddAnswer(string description, int questionId, int totalVote)
+        [Authorize(Roles = "User")]
+        [HttpPost]
+        public async Task<IActionResult> AddAnswer(string answerText, int quesId)
         {
             var model = _scope.Resolve<AnswerCreateModel>();
-            await model.AnswerAsync(description, questionId, totalVote);
-            return Ok();
+            await model.AnswerAsync(answerText, quesId);
+            return Ok(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddComment(string commentVal, int answerId)
+        {
+            var model = _scope.Resolve<AnswerCreateModel>();
+            
+            await model.CommentAsync(commentVal,answerId);
+            return Ok(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddQuestionVote(int quesId)
+        {
+            var model = _scope.Resolve<AnswerCreateModel>();
+
+            await model.GetQuestionVote(quesId);
+            return Ok(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddAnsVote(int answerId)
+        {
+            var model = _scope.Resolve<AnswerCreateModel>();
+
+            // await model.CommentAsync(commentVal, answerId);
+            return Ok(model);
         }
     }
 }

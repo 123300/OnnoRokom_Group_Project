@@ -139,5 +139,34 @@ namespace StackOverflow.Web.Areas.Explorer.Models
         {
             _questionService.GetTest(1);
         }
+
+        internal async Task Details(int id)
+        {
+            var question = await _questionService.GetDetails(id);
+
+            if (question != null)
+            {
+                Id = question.Id;
+                ApplicationUserId = question.ApplicationUserId;
+                Title = question.Title;
+                CreatedAt = question.CreatedAt;
+                QuestionBody = question.QuestionBody;
+                Tags = new List<Tag>();
+                if (question.Tags != null)
+                {
+                    foreach (var tag in question.Tags)
+                    {
+                        Tags.Add(new Tag
+                        {
+                            Name = tag.Name,
+                            Id = tag.Id,
+                            QuestionId = tag.QuestionId
+                        });
+                    }
+                }
+            }
+
+
+        }
     }
 }

@@ -122,6 +122,14 @@ namespace StackOverflow.Web.Areas.Explorer.Controllers
             return View();
         }
 
+        [AllowAnonymous]
+        public async Task<IActionResult> Details(int id)
+        {
+            var model = _scope.Resolve<QuestionEditModel>();
+            await model.Details(id);
+            return View(model);
+        }
+
 
     }
 }

@@ -3,6 +3,7 @@ using StackOverflow.Infrastructure.UnitOfWorks;
 using StackOverflow.Infrastructure.BusinessObjects;
 using QuestionEO = StackOverflow.Infrastructure.Entities.Question;
 using TagEO = StackOverflow.Infrastructure.Entities.Tag;
+using AnswerEO = StackOverflow.Infrastructure.Entities.Answer;
 using StackOverflow.Infrastructure.Exceptions;
 using Microsoft.EntityFrameworkCore;
 
@@ -28,9 +29,11 @@ namespace StackOverflow.Infrastructure.Services
                 Title = question.Title,
                 CreatedAt = question.CreatedAt,
                 IsSolvedQstn = question.IsSolvedQstn,
-                QuestionBody = question.QuestionBody
+                QuestionBody = question.QuestionBody,
+                AuthorName = question.AuthorName
             };
             entity.Tags = new List<TagEO>();
+            entity.Answers = new List<AnswerEO>();
 
             if (question.Tags is not null)
             {
@@ -41,6 +44,20 @@ namespace StackOverflow.Infrastructure.Services
                         Name = tag.Name,
                         QuestionId = tag.QuestionId,
                         Id = tag.Id
+                    });
+                }
+            }
+
+            if (question.Answers is not null)
+            {
+                foreach (var answer in question.Answers)
+                {
+                    entity.Answers.Add(new AnswerEO
+                    {
+                        Description = answer.Description,
+                        Id = answer.Id,
+                        AuthorName = answer.AuthorName
+
                     });
                 }
             }
@@ -56,7 +73,8 @@ namespace StackOverflow.Infrastructure.Services
                 Title = question.Title,
                 CreatedAt = question.CreatedAt,
                 IsSolvedQstn = question.IsSolvedQstn,
-                QuestionBody = question.QuestionBody
+                QuestionBody = question.QuestionBody,
+                AuthorName = question.AuthorName
                 
             };
             business.Tags = new List<Tag>();
@@ -81,7 +99,8 @@ namespace StackOverflow.Infrastructure.Services
                     business.Answers.Add(new Answer
                     {
                         Description = answer.Description,
-                        Id = answer.Id
+                        Id = answer.Id,
+                        AuthorName = answer.AuthorName
                         
                     });
                 }
@@ -199,6 +218,24 @@ namespace StackOverflow.Infrastructure.Services
         public void GetTest(int pageIndex)
         {
             var get = _stackOverflowUnitOfWork.QuestionRepository.GetDynamic(null, "Title desc", x => x.Include(c => c.Tags).Include(c => c.Answers), pageIndex, 10);
+        }
+
+        public async Task<List<Question>> GetPaginatedQuestions(int index, int pageSize)
+        {
+            var questionEntites = await _stackOverflowUnitOfWork.QuestionRepository.GetDynamicAsync(null, "Id desc", null, index, pageSize, false);
+            var questions = new List<Question>();
+            foreach (var question in questionEntites.data)
+                questions.Add(_mapper.Map<Question>(question));
+            return questions;
+        }
+
+        public async Task<Question> GetDetails(int id)
+        {
+            var questionEntity = (await _stackOverflowUnitOfWork.QuestionRepository
+                .GetAsync(c => c.Id == id, x => x.Include(d => d.Tags)
+                .Include(y => y.Answers))).FirstOrDefault();
+
+            return MappingToBusiness(questionEntity);
         }
 
     }

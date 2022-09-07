@@ -8,6 +8,7 @@ namespace StackOverflow.Infrastructure.Entities
         public int Id { get; set; }
         public Guid ApplicationUserId { get; set; }
         public string? Title { get; set; }
+        public string? AuthorName { get; set; }
         public string? QuestionBody { get; set; }
         public DateTime? CreatedAt { get; set; }
         public bool IsSolvedQstn { get; set; }
