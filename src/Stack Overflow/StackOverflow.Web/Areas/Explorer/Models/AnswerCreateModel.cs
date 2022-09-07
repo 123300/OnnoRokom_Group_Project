@@ -43,9 +43,16 @@ namespace StackOverflow.Web.Areas.Explorer.Models
 
         internal async Task AnswerAsync(string description, int questionId, int totalVote)
         {
+            await GetUserInfoAsync();
+
+            bool isAns = UserInfo!.IsAnsVoteDone;
+            if(isAns is true)
+            {
+                TotalAnsVote = totalVote -1;
+            }
+            TempId = UserInfo!.Id;
             Description = description;
             QuestionId = questionId;
-            TotalAnsVote = TotalAnsVote;
         }
     }
 }

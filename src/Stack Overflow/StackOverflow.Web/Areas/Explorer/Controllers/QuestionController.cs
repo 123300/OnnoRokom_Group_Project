@@ -122,13 +122,6 @@ namespace StackOverflow.Web.Areas.Explorer.Controllers
             return View();
         }
 
-        public async Task<IActionResult> AddAnswer(string description,int questionId,int totalVote)
-        {
-            var model = _scope.Resolve<AnswerCreateModel>();
-            await model.AnswerAsync(description, questionId, totalVote);
-            return Ok();
-        }
-
 
     }
 }
