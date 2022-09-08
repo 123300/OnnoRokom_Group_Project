@@ -4,6 +4,15 @@
 @section Styles{
 
 }
+
+    @if(User.Identity != null)
+{
+    if(User.Identity.IsAuthenticated)
+{
+    <a src="/Home/Index" class="btn btn-outline-info mb-3">Ask Question</a>
+}
+}
+
 <div id="questions" class="float-left">
     
 </div>

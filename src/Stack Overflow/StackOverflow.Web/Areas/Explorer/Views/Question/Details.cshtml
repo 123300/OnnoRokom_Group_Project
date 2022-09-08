@@ -7,23 +7,25 @@
 {
    <div class="card">
     <div class="card-body">
-        <div class="row">
-            <div class="col-md-3 col-sm-9">
-                 <button type="button" class="btn btn-primary btn-sm addQsn" onclick="LoadQusnVote()"><i class="fa fa-chevron-up"></i></button>
+        <div class="row mb-3">
+            <div class="col-md-2 col-sm-2"></div>
+            <div class="col-md-2 col-sm-2">
+                 <button type="button" class="btn btn-primary btn-sm addQsn rounded" onclick="LoadQusnVote()"><i class="fa fa-chevron-up"></i></button>
                  <br />
-                 <strong class="temp1">@Model.Temp1</strong>
+                 <strong class="temp1 pl-3">@Model.Temp1</strong>
                  <br />
-                 <button type="button" class="btn btn-primary btn-sm addQsn" onclick="LoadQusnVote()"><i class="fa fa-chevron-down"></i></button>
+                 <button type="button" class="btn btn-primary btn-sm addQsn rounded" onclick="LoadQusnVote()"><i class="fa fa-chevron-down"></i></button>
             </div>
-            <div class="col-md-9 col-sm-9">
-                <div class="bg-primary text-white">
-                    <input type="text" hidden value="@Model.Id" class="getQuesId" />
-                    <h3 class="ml-2">@Model.Title</h3>
-                    <br />
-                    <textarea class="form-control" rows="5" id="email" disabled>
-                        @Model.QuestionBody
-                    </textarea>
-                    <br />
+            <div class="col-md-6 col-sm-6">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <div class="text-dark">
+                         <input type="text" hidden value="@Model.Id" class="getQuesId" />
+                           <h3 class="ml-2">@Model.Title</h3>
+                          <br />
+                          <textarea class="form-control mb-3" rows="5" id="email" disabled>
+                           @Model.QuestionBody
+                          </textarea>
                         @if(Model.Tags != null)
                         {
                             foreach(var tag in Model.Tags)
@@ -37,62 +39,75 @@
                         <small class="float-right">@Model.CreatedAt</small>
                     </div>
                 </div>
+                    </div>
+                </div>
+                
             </div>
+            <div class="col-md-2 col-sm-2"></div>
             
         </div>
             @if(Model.Answers != null)
             {
-               <div class="row">
-            <div class="col-md-3 col-sm-9">
-                 <button type="button" class="btn btn-primary btn-sm addAns" onclick="LoadAnsVote()"><i class="fa fa-chevron-up"></i></button>
+                <div class="card my-3">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-2 col-md-2"></div>
+            <div class="col-md-2 col-sm-2">
+                 <button type="button" class="btn btn-primary btn-sm addAns rounded" onclick="LoadAnsVote()"><i class="fa fa-chevron-up"></i></button>
                  <br />
-                 <strong class="temp2">@Model.Temp2</strong>
+                 <strong class="temp2 pl-3">@Model.Temp2</strong>
                  <br />
-                 <button type="button" class="btn btn-primary btn-sm addAns" onclick="LoadAnsVote()"><i class="fa fa-chevron-down"></i></button>
+                 <button type="button" class="btn btn-primary btn-sm addAns rounded" onclick="LoadAnsVote()"><i class="fa fa-chevron-down"></i></button>
                  <br />
                  
             </div>
-            <div class="col-md-9 col-sm-9">
-                <div class="bg-light text-white">
+            <div class="col-md-6 col-sm-6">
+                <div class="bg-dark card my-3">
                   @foreach(var answer in Model.Answers)
                   {
                                 <div>
                                     <input type="text" hidden value="@answer.Id" class="getAnsId" />
-                                <textarea class="form-control" rows="5" id="email" disabled>
+                                <textarea class="form-control text-white" rows="5" id="email" disabled>
                                   @answer.Description
                                 </textarea>
-                                <div class="float-right">@answer.AuthorName</div>
+                                <div class="float-right text-white">@answer.AuthorName</div>
                                 </div>
-                                <br />
                                 if (answer.Comments != null)
                                 {
                                     foreach(var comment in answer.Comments)
                                 {
                                     <small>List of comment</small>
-                                    <div>
-                                        <p>@comment.Description</p>
-                                    <div class="float-right">@comment.AuthorName</div>
-                                    <div class="float-right">@comment.CreatedBy</div>
+                                    <div class="card my-3 bg-info">
+                                        <div>
+                                        <p class="text-white">@comment.Description</p>
+                                        <div class="float-right text-white">@comment.AuthorName</div>
+                                    <div class="float-right text-white">@comment.CreatedBy</div>
                                     </div>
+                                    </div>
+                                    
+                                    
                                     
                                     
                                 }
                                 }
 
-                                <div class="mycomment"></div>
-                                    <input type="text" placeholder="add a comment" class="comText"/>
-                                    <button type="button" onclick="Cmnt()">CommentBtn</button>
-                                    <br />
+                                <div class="mycomment">
+                                    <input type="text" placeholder="add a comment" class="comText form-control"/>
+                                    <button type="button" class="btn btn-info" onclick="Cmnt()">CommentBtn</button>
+                                </div>
                   }
                 </div>
             </div>
+             <div class="col-md-2 col-md-2"></div>
             
-        </div> 
+        </div>
+                    </div>
+                </div> 
             }
-            <div class="bg-light text-info">
+            <div class="bg-light text-info pt-3">
                 <h3>Your Answer</h3>
                 <textarea class="form-control ansText" rows="5" id="email"></textarea>
-                <button type="button" onclick="Ans()">AnswerBtn</button>
+                <button type="button" class="btn btn-outline-info" onclick="Ans()">AnswerBtn</button>
             </div>
             
     </div>
