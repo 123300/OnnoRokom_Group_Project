@@ -8,5 +8,6 @@ namespace StackOverflow.Infrastructure.UnitOfWorks
         IQuestionRepository QuestionRepository { get; }
         IAnswerRepository AnswerRepository { get; }
         ICommentRepository CommentRepository { get; }
+        IVoteRepository VoteRepository { get; }
     }
 }

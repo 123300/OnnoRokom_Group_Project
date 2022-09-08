@@ -36,6 +36,10 @@ namespace StackOverflow.Web
                 .AsSelf()
                 .InstancePerLifetimeScope();
 
+            builder.RegisterType<AnswerCreateModel>()
+                .AsSelf()
+                .InstancePerLifetimeScope();
+
             base.Load(builder);
         }
     }

@@ -23,6 +23,9 @@ namespace StackOverflow.Web.Areas.Explorer.Models
         public string? QuestionBody { get; set; }
         public DateTime? CreatedAt { get; set; }
         public bool IsSolvedQstn { get; set; }
+        public string? AuthorName { get; set; }
+        public int Temp1 { get; set; }
+        public int Temp2 { get; set; }
         public ApplicationUser? ApplicationUser { get; set; }
 
         [Required]
@@ -63,6 +66,7 @@ namespace StackOverflow.Web.Areas.Explorer.Models
                     CreatedAt = question.CreatedAt;
                     IsSolvedQstn = question.IsSolvedQstn;
                     QuestionBody = question.QuestionBody;
+                    AuthorName = question.AuthorName;
                     Tags = new List<Tag>();
                     if(question.Tags != null)
                     {
@@ -151,7 +155,11 @@ namespace StackOverflow.Web.Areas.Explorer.Models
                 Title = question.Title;
                 CreatedAt = question.CreatedAt;
                 QuestionBody = question.QuestionBody;
+                Temp1 = question.Temp1;
+                Temp2 = question.Temp2;
+                AuthorName = question.AuthorName;
                 Tags = new List<Tag>();
+                Answers = new List<Answer>();
                 if (question.Tags != null)
                 {
                     foreach (var tag in question.Tags)
@@ -161,6 +169,18 @@ namespace StackOverflow.Web.Areas.Explorer.Models
                             Name = tag.Name,
                             Id = tag.Id,
                             QuestionId = tag.QuestionId
+                        });
+                    }
+                }
+                if (question.Answers != null)
+                {
+                    foreach (var answer in question.Answers)
+                    {
+                        Answers.Add(new Answer
+                        {
+                            Description = answer.Description,
+                            Id = answer.Id,
+                            AuthorName = answer.AuthorName
                         });
                     }
                 }

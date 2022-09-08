@@ -76,16 +76,22 @@ namespace StackOverflow.Web.Areas.Explorer.Models
 
         }
 
-        internal async Task GetQuestionVote(int quesId)
+        internal async Task<int> GetQuestionVote(int quesId)
         {
             await GetUserInfoAsync();
-            var vote = new Vote()
-            {
-                ApplicationUserId = UserInfo!.Id,
-                QuestionId = quesId
-            };
 
-            //await _commentService.CreateCommentAsync(comment);
+            var id = UserInfo!.Id;
+
+            return await _commentService.GetQusnVote(id,quesId);
+        }
+
+        internal async Task<int> GetAnsVote(int answerId)
+        {
+            await GetUserInfoAsync();
+
+            var id = UserInfo!.Id;
+
+            return await _commentService.GetAnsVote(id, answerId);
         }
 
     }

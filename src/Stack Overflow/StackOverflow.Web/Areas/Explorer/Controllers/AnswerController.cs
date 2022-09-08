@@ -27,6 +27,7 @@ namespace StackOverflow.Web.Areas.Explorer.Controllers
             return Ok(model);
         }
 
+        [Authorize(Roles = "User")]
         [HttpPost]
         public async Task<IActionResult> AddComment(string commentVal, int answerId)
         {
@@ -36,6 +37,7 @@ namespace StackOverflow.Web.Areas.Explorer.Controllers
             return Ok(model);
         }
 
+        [Authorize(Roles = "User")]
         [HttpPost]
         public async Task<IActionResult> AddQuestionVote(int quesId)
         {
@@ -45,12 +47,13 @@ namespace StackOverflow.Web.Areas.Explorer.Controllers
             return Ok(model);
         }
 
+        [Authorize(Roles = "User")]
         [HttpPost]
         public async Task<IActionResult> AddAnsVote(int answerId)
         {
             var model = _scope.Resolve<AnswerCreateModel>();
 
-            // await model.CommentAsync(commentVal, answerId);
+             await model.GetAnsVote(answerId);
             return Ok(model);
         }
     }

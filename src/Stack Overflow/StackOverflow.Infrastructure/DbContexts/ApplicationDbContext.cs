@@ -56,5 +56,6 @@ namespace StackOverflow.Infrastructure.DbContexts
         public DbSet<Answer>? Answers { get; set; }
         public DbSet<Comment>? Comments { get; set; }
         public DbSet<Tag>? Tags { get; set; }
+        public DbSet<Vote> Votes { get; set; }
     }
 }

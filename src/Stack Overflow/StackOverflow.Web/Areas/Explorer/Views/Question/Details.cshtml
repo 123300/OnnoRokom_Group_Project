@@ -11,9 +11,9 @@
             <div class="col-md-3 col-sm-9">
                  <button type="button" class="btn btn-primary btn-sm addQsn" onclick="LoadQusnVote()"><i class="fa fa-chevron-up"></i></button>
                  <br />
-                 <small>Vote</small>
+                 <strong class="temp1">@Model.Temp1</strong>
                  <br />
-                 <button type="button" class="btn btn-primary btn-sm addQsn"><i class="fa fa-chevron-down"></i></button>
+                 <button type="button" class="btn btn-primary btn-sm addQsn" onclick="LoadQusnVote()"><i class="fa fa-chevron-down"></i></button>
             </div>
             <div class="col-md-9 col-sm-9">
                 <div class="bg-primary text-white">
@@ -28,13 +28,13 @@
                         {
                             foreach(var tag in Model.Tags)
                             {
-                                <small class="ml-3">@tag</small>
+                                <small class="ml-3 text-yellow">@tag.Name</small>
                             }
                         }
                     <br />
                     <div class="bg-info text-black">
-                        <p class="ml-2">Author Name</p>
-                        <small>create time</small>
+                        <p class="ml-2 float-right">@Model.AuthorName</p>
+                        <small class="float-right">@Model.CreatedAt</small>
                     </div>
                 </div>
             </div>
@@ -46,11 +46,11 @@
             <div class="col-md-3 col-sm-9">
                  <button type="button" class="btn btn-primary btn-sm addAns" onclick="LoadAnsVote()"><i class="fa fa-chevron-up"></i></button>
                  <br />
-                 <small>Vote</small>
+                 <strong class="temp2">@Model.Temp2</strong>
                  <br />
                  <button type="button" class="btn btn-primary btn-sm addAns" onclick="LoadAnsVote()"><i class="fa fa-chevron-down"></i></button>
                  <br />
-                 <button><i class="fa fa-check"></i></button>
+                 
             </div>
             <div class="col-md-9 col-sm-9">
                 <div class="bg-light text-white">
@@ -75,22 +75,25 @@
                                     <div class="float-right">@comment.CreatedBy</div>
                                     </div>
                                     
-                                    <div class="mycomment"></div>
+                                    
+                                }
+                                }
+
+                                <div class="mycomment"></div>
                                     <input type="text" placeholder="add a comment" class="comText"/>
                                     <button type="button" onclick="Cmnt()">CommentBtn</button>
                                     <br />
-                                }
-                                }
                   }
                 </div>
             </div>
+            
+        </div> 
+            }
             <div class="bg-light text-info">
                 <h3>Your Answer</h3>
                 <textarea class="form-control ansText" rows="5" id="email"></textarea>
                 <button type="button" onclick="Ans()">AnswerBtn</button>
             </div>
-        </div> 
-            }
             
     </div>
 </div>
@@ -113,7 +116,7 @@
         cache: false,
         data: { 'quesId': quesId },
         success: function(result) { 
-            
+            location.href = `/Explorer/Question/Details/${quesId}`;
         },
         error: function (result) 
         {
@@ -128,6 +131,7 @@
 
     function LoadAnsVote() {
         var answerId = $(".getAnsId").val();
+        var quesId = $(".getQuesId").val();
 
         $.ajax({
         url: '@Url.Action("AddAnsVote", "Answer")',
@@ -135,7 +139,7 @@
         cache: false,
         data: { 'answerId': answerId },
         success: function(result) { 
-            
+            location.href = `/Explorer/Question/Details/${quesId}`;
         },
         error: function (result) 
         {
@@ -167,7 +171,7 @@
         cache: false,
         data: { 'commentVal': commentVal, 'answerId' : answerId },
         success: function(result) { 
-            location.href = '/Explorer/Question/Details/${quesId}';
+            location.href = `/Explorer/Question/Details/${quesId}`;
         },
         error: function (result) 
         {
@@ -200,7 +204,7 @@
         data: { 'answerText': answerText, 'quesId' : quesId },
         success: function(result) { 
             //assignPost(result);
-            location.href = '/Explorer/Question/Details/${quesId}';
+            location.href = `/Explorer/Question/Details/${quesId}`;
         },
         error: function (result) 
         { 

@@ -13,6 +13,8 @@ namespace StackOverflow.Infrastructure.Services
     {
         private IStackOverflowUnitOfWork _stackOverflowUnitOfWork;
         private readonly IMapper _mapper;
+        private int _qtnvote = 0;
+        private int _ansvote = 0;
 
         public QuestionService(IStackOverflowUnitOfWork stackOverflowUnitOfWork, IMapper mapper)
         {
@@ -74,7 +76,9 @@ namespace StackOverflow.Infrastructure.Services
                 CreatedAt = question.CreatedAt,
                 IsSolvedQstn = question.IsSolvedQstn,
                 QuestionBody = question.QuestionBody,
-                AuthorName = question.AuthorName
+                AuthorName = question.AuthorName,
+                Temp1 = _qtnvote,
+                Temp2 = _ansvote
                 
             };
             business.Tags = new List<Tag>();
@@ -231,9 +235,24 @@ namespace StackOverflow.Infrastructure.Services
 
         public async Task<Question> GetDetails(int id)
         {
+            if (id is 0)
+                return null;
+
             var questionEntity = (await _stackOverflowUnitOfWork.QuestionRepository
                 .GetAsync(c => c.Id == id, x => x.Include(d => d.Tags)
                 .Include(y => y.Answers))).FirstOrDefault();
+            if(questionEntity != null)
+            {
+                _qtnvote =  (await _stackOverflowUnitOfWork.VoteRepository
+                   .GetAsync(c => c.QuestionId == questionEntity.Id, null)).Count();
+
+                if(questionEntity.Answers != null)
+                {
+                    _ansvote = (await _stackOverflowUnitOfWork.VoteRepository
+                   .GetAsync(c => c.AnswerId == questionEntity.Answers.Select(c => c.Id)
+                   .FirstOrDefault(), null)).Count();
+                }
+            }
 
             return MappingToBusiness(questionEntity);
         }

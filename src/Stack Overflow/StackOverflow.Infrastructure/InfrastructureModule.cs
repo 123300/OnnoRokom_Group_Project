@@ -50,6 +50,9 @@ namespace StackOverflow.Infrastructure
             builder.RegisterType<AnswerService>().As<IAnswerService>()
                 .InstancePerLifetimeScope();
 
+            builder.RegisterType<VoteRepository>().As<IVoteRepository>()
+                .InstancePerLifetimeScope();
+
             base.Load(builder);
         }
     }

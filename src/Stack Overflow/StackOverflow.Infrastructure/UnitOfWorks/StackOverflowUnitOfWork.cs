@@ -11,15 +11,19 @@ namespace StackOverflow.Infrastructure.UnitOfWorks
         public IQuestionRepository QuestionRepository { get; private set; }
         public IAnswerRepository AnswerRepository { get; private set; }
         public ICommentRepository CommentRepository { get; private set; }
+        public IVoteRepository VoteRepository { get; private set; }
 
         public StackOverflowUnitOfWork(ApplicationDbContext dbContext, 
             IQuestionRepository questionRepository, 
-            IAnswerRepository answerRepository, ICommentRepository commentRepository)
+            IAnswerRepository answerRepository,
+            ICommentRepository commentRepository,
+            IVoteRepository voteRepository)
             :base(dbContext)
         {
             QuestionRepository = questionRepository;
             AnswerRepository = answerRepository;
             CommentRepository = commentRepository;
+            VoteRepository = voteRepository;
         }
 
     }

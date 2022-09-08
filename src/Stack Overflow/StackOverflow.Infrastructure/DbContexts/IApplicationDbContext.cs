@@ -11,5 +11,6 @@ namespace StackOverflow.Infrastructure.DbContexts
         DbSet<Answer>? Answers { get; set; }
         DbSet<Comment>? Comments { get; set; }
         DbSet<Tag>? Tags { get; set; }
+        DbSet<Vote>? Votes { get; set; }
     }
 }
