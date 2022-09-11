@@ -25,7 +25,7 @@ namespace StackOverflow.Web.Areas.Explorer.Models
         public bool IsSolvedQstn { get; set; }
         public string? AuthorName { get; set; }
         public int Temp1 { get; set; }
-        public int Temp2 { get; set; }
+        public int CountVote { get; set; }
         public ApplicationUser? ApplicationUser { get; set; }
 
         [Required]
@@ -156,7 +156,6 @@ namespace StackOverflow.Web.Areas.Explorer.Models
                 CreatedAt = question.CreatedAt;
                 QuestionBody = question.QuestionBody;
                 Temp1 = question.Temp1;
-                Temp2 = question.Temp2;
                 AuthorName = question.AuthorName;
                 Tags = new List<Tag>();
                 Answers = new List<Answer>();
@@ -176,11 +175,30 @@ namespace StackOverflow.Web.Areas.Explorer.Models
                 {
                     foreach (var answer in question.Answers)
                     {
+                        var comment = new List<Comment>();
+                        if (answer.Comments != null)
+                        {
+
+                            foreach (var com in answer.Comments)
+                            {
+                                comment.Add(new Comment()
+                                {
+                                    Description = com.Description,
+                                    CreatedDate = com.CreatedDate,
+                                    AnswerId = com.AnswerId,
+                                    AuthorName = com.AuthorName,
+                                    TempId = com.TempId,
+                                    CreatedBy = com.CreatedBy
+                                });
+                            }
+                        }
                         Answers.Add(new Answer
                         {
                             Description = answer.Description,
                             Id = answer.Id,
-                            AuthorName = answer.AuthorName
+                            AuthorName = answer.AuthorName,
+                            CountVote = answer.CountVote,
+                            Comments = comment
                         });
                     }
                 }

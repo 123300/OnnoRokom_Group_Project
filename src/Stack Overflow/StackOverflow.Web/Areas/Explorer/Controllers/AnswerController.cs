@@ -51,6 +51,9 @@ namespace StackOverflow.Web.Areas.Explorer.Controllers
         [HttpPost]
         public async Task<IActionResult> AddAnsVote(int answerId)
         {
+            if (answerId == 0)
+                return BadRequest(answerId);
+
             var model = _scope.Resolve<AnswerCreateModel>();
 
              await model.GetAnsVote(answerId);

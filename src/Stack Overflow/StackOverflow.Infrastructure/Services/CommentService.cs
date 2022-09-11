@@ -65,13 +65,13 @@ namespace StackOverflow.Infrastructure.Services
             }
             else
             {
-                var voteId = (await _stackOverflowUnitOfWork.VoteRepository
+                var voteEO = (await _stackOverflowUnitOfWork.VoteRepository
                     .GetAsync(c => c.QuestionId == questionId && c.ApplicationUserId ==id, null))
-                    .Select(c => c.Id).Count();
+                    .FirstOrDefault();
 
-                if(voteId != 0)
+                if(voteEO != null)
                 {
-                    await _stackOverflowUnitOfWork.VoteRepository.RemoveAsync(voteId);
+                    await _stackOverflowUnitOfWork.VoteRepository.RemoveAsync(voteEO);
                     await _stackOverflowUnitOfWork.SaveAsync();
                 }
                 _qtnvote = (await _stackOverflowUnitOfWork.VoteRepository
@@ -102,13 +102,13 @@ namespace StackOverflow.Infrastructure.Services
             }
             else
             {
-                var voteId = (await _stackOverflowUnitOfWork.VoteRepository
+                var voteEO = (await _stackOverflowUnitOfWork.VoteRepository
                     .GetAsync(c => c.AnswerId == answerId && c.ApplicationUserId == id, null))
-                    .Select(c => c.Id).Count();
+                    .FirstOrDefault();
 
-                if (voteId != 0)
+                if (voteEO !=null)
                 {
-                    await _stackOverflowUnitOfWork.VoteRepository.RemoveAsync(voteId);
+                    await _stackOverflowUnitOfWork.VoteRepository.RemoveAsync(voteEO);
                     await _stackOverflowUnitOfWork.SaveAsync();
                 }
                 _ansvote = (await _stackOverflowUnitOfWork.VoteRepository

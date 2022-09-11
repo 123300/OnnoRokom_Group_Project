@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DevSkill.Data;
+﻿using DevSkill.Data;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace StackOverflow.Infrastructure.Entities
 {
@@ -14,6 +10,9 @@ namespace StackOverflow.Infrastructure.Entities
         public string? AuthorName { get; set; }
         public int QuestionId { get; set; }
         public Guid? TempId { get; set; }
+
+        [NotMapped]
+        public int CountVote { get; set; }
         public Question? Question { get; set; }
         public IList<Comment>? Comments { get; set; }
     }

@@ -4,6 +4,7 @@ using StackOverflow.Infrastructure.BusinessObjects;
 using QuestionEO = StackOverflow.Infrastructure.Entities.Question;
 using TagEO = StackOverflow.Infrastructure.Entities.Tag;
 using AnswerEO = StackOverflow.Infrastructure.Entities.Answer;
+using CommentEO = StackOverflow.Infrastructure.Entities.Comment;
 using StackOverflow.Infrastructure.Exceptions;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,7 +15,6 @@ namespace StackOverflow.Infrastructure.Services
         private IStackOverflowUnitOfWork _stackOverflowUnitOfWork;
         private readonly IMapper _mapper;
         private int _qtnvote = 0;
-        private int _ansvote = 0;
 
         public QuestionService(IStackOverflowUnitOfWork stackOverflowUnitOfWork, IMapper mapper)
         {
@@ -77,8 +77,7 @@ namespace StackOverflow.Infrastructure.Services
                 IsSolvedQstn = question.IsSolvedQstn,
                 QuestionBody = question.QuestionBody,
                 AuthorName = question.AuthorName,
-                Temp1 = _qtnvote,
-                Temp2 = _ansvote
+                Temp1 = _qtnvote
                 
             };
             business.Tags = new List<Tag>();
@@ -100,12 +99,30 @@ namespace StackOverflow.Infrastructure.Services
             {
                 foreach (var answer in question.Answers)
                 {
+                    var comment = new List<Comment>();
+                    if (answer.Comments != null)
+                    {
+
+                        foreach (var com in answer.Comments)
+                        {
+                            comment.Add(new Comment()
+                            {
+                                Description = com.Description,
+                                CreatedDate = com.CreatedDate,
+                                AnswerId = com.AnswerId,
+                                AuthorName = com.AuthorName,
+                                TempId = com.TempId,
+                                CreatedBy = com.CreatedBy
+                            });
+                        }
+                    }
                     business.Answers.Add(new Answer
                     {
                         Description = answer.Description,
                         Id = answer.Id,
-                        AuthorName = answer.AuthorName
-                        
+                        AuthorName = answer.AuthorName,
+                        CountVote = answer.CountVote,
+                        Comments = comment
                     });
                 }
             }
@@ -240,7 +257,7 @@ namespace StackOverflow.Infrastructure.Services
 
             var questionEntity = (await _stackOverflowUnitOfWork.QuestionRepository
                 .GetAsync(c => c.Id == id, x => x.Include(d => d.Tags)
-                .Include(y => y.Answers))).FirstOrDefault();
+                .Include(y => y.Answers).ThenInclude(f => f.Comments))).FirstOrDefault();
             if(questionEntity != null)
             {
                 _qtnvote =  (await _stackOverflowUnitOfWork.VoteRepository
@@ -248,9 +265,11 @@ namespace StackOverflow.Infrastructure.Services
 
                 if(questionEntity.Answers != null)
                 {
-                    _ansvote = (await _stackOverflowUnitOfWork.VoteRepository
-                   .GetAsync(c => c.AnswerId == questionEntity.Answers.Select(c => c.Id)
-                   .FirstOrDefault(), null)).Count();
+                    foreach (var vote in questionEntity.Answers)
+                    {
+                        vote.CountVote = (await _stackOverflowUnitOfWork.VoteRepository
+                            .GetAsync(c => c.AnswerId == vote.Id, null)).Count();
+                    }
                 }
             }
 

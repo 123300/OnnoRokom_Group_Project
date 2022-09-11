@@ -81,7 +81,7 @@ namespace StackOverflow.Web.Areas.Explorer.Controllers
                 {
 
                     await model.UpdateAsync();
-                    ViewResponse("Question has been created updated.", ResponseTypes.Success);
+                    ViewResponse("Question has been updated.", ResponseTypes.Success);
                     return RedirectToAction(nameof(Index));
                 }
                 else

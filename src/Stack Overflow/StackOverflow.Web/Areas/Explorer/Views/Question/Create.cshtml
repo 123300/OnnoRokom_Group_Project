@@ -4,6 +4,17 @@
 }
 
 
+<div class="">
+    <div class="row">
+        <div class="col-6">
+         </div>
+          <div class="col-6">
+                <div>
+                    <a asp-action="Index" asp-controller="Question" class="btn btn-outline-info btn-md">Index<span class="ml-3"><i class="fa fa-plus" style="margin: 4px"></i></span></a>
+                </div>
+          </div>
+    </div>
+</div>
 <div class="row">
     <div class="col-md-8 col-sm-8">
         <div class="card">
@@ -14,10 +25,10 @@
                     class="" asp-antiforgery="true">                  
                       <div class="">
                             <div class="item form-group">
-                                <label class="col-form-label label-align" for="Title">
+                                <label class="col-form-label label-align" for="Title" style="display: block; font-size: 1.1rem;">
                                    Title
-                                   <small class="text-muted">Be specific and imagine you are asking a question to another person for</small>
                                 </label>
+                                <small class="text-muted">Be specific and imagine you are asking a question to another person for</small>
                                 
                                 <div>
                                     <input type="text" asp-for="Title" id="Title" class="form-control" required>
@@ -25,7 +36,7 @@
                                 </div>
                             </div>
                             <div class="item form-group">
-                                <label class="col-form-label label-align" for="QuestionBody">
+                                <label class="col-form-label label-align" for="QuestionBody" style="display: block; font-size: 1.1rem;">
                                     Body
                                 </label>
                                 <small class="text-muted">Include all the information someone would need to anwer your Question</small>
@@ -37,7 +48,7 @@
                             <div id="tags">
                             </div>
                             <div class="item form-group">
-                                <label class="col-form-label label-align" for="tag">
+                                <label class="col-form-label label-align" for="tag" style="display: block; font-size: 1.1rem;">
                                     Tags
                                 </label>
                                 <div class="">
@@ -56,24 +67,23 @@
                 </form>
         </div>
     </div>
-    <div class="col-md-4 col-sm-4">
-
-    </div>
+    <div class="col-md-4 col-sm-4"></div>
     </div>
     </div>
 </div>
 
 @section Scripts{
     <!-- jQuery Smart Wizard -->
-    <partial name="~/views/shared/_ValidationScriptsPartial.cshtml" />
     <script>
     $(function () {
-        var html = "<div class='item form-group'><label class='col-form-label label-align' for='tag'>Tags</label><div class=''><input type='text' name='Tags' id='tag' class='form-control required'><span asp-validation-for='Tags' class='text-danger'></span></div></div>";
+        var html = "<div class='item form-group'><label class='col-form-label label-align' for='tag' style='display: block; font-size: 1.1rem;'>Tags</label><div class=''><input type='text' name='Tags' id='tag' class='form-control required'><span asp-validation-for='Tags' class='text-danger'></span></div></div>";
         $("#addTag").click(function(){
             $("#tags").append(html);
         });
     });
 
 </script>
+
+<partial name="~/views/shared/_ValidationScriptsPartial.cshtml" />
 }
 

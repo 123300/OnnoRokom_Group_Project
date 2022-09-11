@@ -18,7 +18,6 @@ namespace StackOverflow.Infrastructure.BusinessObjects
         public DateTime? CreatedAt { get; set; }
         public bool IsSolvedQstn { get; set; }
         public int Temp1 { get; set; }
-        public int Temp2 { get; set; }
         public ApplicationUser? ApplicationUser { get; set; }
         public IList<Tag>? Tags { get; set; }
         public IList<Answer>? Answers { get; set; }

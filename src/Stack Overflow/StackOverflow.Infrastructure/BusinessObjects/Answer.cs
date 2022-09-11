@@ -7,6 +7,7 @@
         public string? AuthorName { get; set; }
         public int QuestionId { get; set; }
         public Guid? TempId { get; set; }
+        public int CountVote { get; set; }
         public Question? Question { get; set; }
         public IList<Comment>? Comments { get; set; }
     }

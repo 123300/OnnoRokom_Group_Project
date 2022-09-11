@@ -20,6 +20,7 @@ namespace StackOverflow.Web.Areas.Explorer.Models
 
         [Required]
         public string? QuestionBody { get; set; }
+        public string? AuthorName { get; set; }
         public DateTime? CreatedAt { get; set; }
         public bool IsSolvedQstn { get; set; }
         public ApplicationUser? ApplicationUser { get; set; }
@@ -61,6 +62,7 @@ namespace StackOverflow.Web.Areas.Explorer.Models
                 ApplicationUserId = UserInfo!.Id,
                 CreatedAt = DateTime.UtcNow,
                 Title = Title,
+                AuthorName = UserInfo!.FirstName,
                 QuestionBody = QuestionBody,
                 IsSolvedQstn = false
             };
